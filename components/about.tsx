@@ -9,6 +9,7 @@ const About = () => {
       initial={{ opacity: 0, y: 100 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.175 }}
+      id="about"
     >
       <SectionHeader>About Me</SectionHeader>
       <p className="mb-3">
