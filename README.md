@@ -4,3 +4,5 @@
 - Using hooks
 
 ## Framer Motion uses hooks under the hood that's why it's important to make that component client
+
+## Using React Intersection Observer API - setting active section onscroll

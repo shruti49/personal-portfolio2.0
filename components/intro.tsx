@@ -1,16 +1,22 @@
 /* eslint-disable react/no-unescaped-entities */
+import React, { useEffect } from "react";
 import { BsArrowRight, BsLinkedin } from "react-icons/bs";
 import { HiDownload } from "react-icons/hi";
 
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import { FaGithubSquare } from "react-icons/fa";
+import { useSectionInView } from "@/lib/hooks";
 
 const Intro = () => {
+  const { ref } = useSectionInView("Home",0.5);
   return (
-    <section className="max-w-[38rem] mb-28 text-center sm:mb-0 scroll-mt-[100rem]" id="home">
+    <section
+      ref={ref}
+      className="max-w-[38rem] mb-28 text-center sm:mb-0 scroll-mt-[100rem]"
+      id="home"
+    >
       <div className="flex items-center justify-center">
         <div className="relative">
           <motion.div
