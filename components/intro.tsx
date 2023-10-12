@@ -1,16 +1,19 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useEffect } from "react";
-import { BsArrowRight, BsLinkedin } from "react-icons/bs";
+import React from "react";
 import { HiDownload } from "react-icons/hi";
+import { BsArrowRight, BsLinkedin } from "react-icons/bs";
 
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { FaGithubSquare } from "react-icons/fa";
 import { useSectionInView } from "@/lib/hooks";
+import { useActiveSectionContext } from "@/context/active-section-context";
 
 const Intro = () => {
-  const { ref } = useSectionInView("Home",0.5);
+  const { ref } = useSectionInView("Home", 0.5);
+  const { setActiveSection, setTimeOfLastClick } = useActiveSectionContext();
+
   return (
     <section
       ref={ref}
@@ -72,22 +75,26 @@ const Intro = () => {
         }}
       >
         <Link
-          href="/contact"
+          href="#contact"
           className="bg-gray-900 text-white w-52 px-2 py-3 flex items-center gap-2 rounded-full justify-center outline-none focus:scale-110 hover:scale-110 hover:bg-gray-950 active:scale-105 transition-all group"
+          onClick={() => {
+            setActiveSection("Contact");
+            setTimeOfLastClick(Date.now());
+          }}
         >
           Contact me here{" "}
           <BsArrowRight className="opacity-70 group-hover:translate-x-1 transition" />
         </Link>
         <a
           href="../public/CV.pdf"
-          className=" bg-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 transition cursor-pointer border-black/10 group"
+          className=" bg-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 transition cursor-pointer borderBlack group"
           download
         >
           Download CV{" "}
           <HiDownload className="opacity-60 group-hover:translate-y-1 transition" />
         </a>
         <a
-          className="bg-white p-4 text-gray-700 hover:text-gray-950 flex items-center gap-2 rounded-full focus:scale-[1.15] hover:scale-[1.15] transition cursor-pointer border-black/10"
+          className="bg-white p-4 text-gray-700 hover:text-gray-950 flex items-center gap-2 rounded-full focus:scale-[1.15] hover:scale-[1.15] transition cursor-pointer borderBlack"
           href="https://linkedin.com"
           target="_blank"
         >

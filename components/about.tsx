@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import SectionHeader from "./section-heading";
 import { useSectionInView } from "@/lib/hooks";

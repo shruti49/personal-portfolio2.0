@@ -1,7 +1,7 @@
 import React from "react";
-import SectionHeader from "./section-heading";
-import { projectsData } from "@/lib/data";
 import ProjectCard from "./project-card";
+import { projectsData } from "@/lib/data";
+import SectionHeader from "./section-heading";
 import { useSectionInView } from "@/lib/hooks";
 
 const Projects = () => {
