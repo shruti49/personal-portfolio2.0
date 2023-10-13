@@ -1,11 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 import SectionHeader from "./section-heading";
-import { FaPaperPlane } from "react-icons/fa";
 import { useSectionInView } from "@/lib/hooks";
+import { sendEmail } from "@/actions/sendEmail";
+import SubmitBtn from "./submit-btn";
+import toast from "react-hot-toast/headless";
 
 const Contact = () => {
-  const { ref } = useSectionInView("Contact",0);
+  const { ref } = useSectionInView("Contact", 0);
 
   return (
     <motion.section
@@ -28,28 +30,38 @@ const Contact = () => {
       <SectionHeader>Contact Me</SectionHeader>
       <p className="text-gray-700 text-center -mt-6">
         Please contact me directtly at{" "}
-        <a href="mailto:shru17284@gmail.com" className="underline">
-          shru17284@gmail.com
+        <a href="mailto: shrutishastri49@gmail.com" className="underline">
+          shrutishastri49@gmail.com
         </a>{" "}
         or through this form
       </p>
-      <form action="" className="mt-10 flex flex-col">
+      {/* Implemented server actions on client side */}
+      <form
+        action={async (formData) => {
+          const { data, error } = await sendEmail(formData);
+          if (error) {
+            toast.error(error);
+          }
+          toast.success("Data sent successfully");
+        }}
+        className="mt-10 flex flex-col"
+      >
         <input
+          className="h-14 px-4 rounded-lg borderBlack dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none"
+          name="senderEmail"
           type="email"
+          required
+          maxLength={500}
           placeholder="Your email"
-          className="h-14 px-4 rounded-lg borderBlack"
         />
         <textarea
+          className="h-52 my-3 rounded-lg borderBlack p-4 dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none"
+          name="message"
           placeholder="Your message"
-          className="h-52 my-3 rounded-lg borderBlack p-4"
+          required
+          maxLength={5000}
         />
-        <button
-          type="submit"
-          className="group flex items-center justify-center gap-2 h-[3rem] w-[8rem] bg-gray-900 text-white rounded-full outline-none transition-all focus:scale-110 hover:scale-110 hover:bg-gray-950 active:scale-105 disabled:scale-100 disabled:bg-opacity-65"
-        >
-          Submit{" "}
-          <FaPaperPlane className="group-hover:translate-x-1 group-hover:-translate-y-1 text-xs opacity-70 transition-all" />
-        </button>
+        <SubmitBtn />
       </form>
     </motion.section>
   );
