@@ -1,19 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
+import SectionHeading from "./section-heading";
 import { motion } from "framer-motion";
-import SectionHeader from "./section-heading";
 import { useSectionInView } from "@/lib/hooks";
 import { sendEmail } from "@/actions/sendEmail";
 import SubmitBtn from "./submit-btn";
-import toast from "react-hot-toast/headless";
+import toast from "react-hot-toast";
 
-const Contact = () => {
-  const { ref } = useSectionInView("Contact", 0);
+export default function Contact() {
+  const { ref } = useSectionInView("Contact", 0.55);
+
+  const contactFields = {
+    email: "",
+    message: "",
+  };
+
+  type ContactFormTypes = {
+    email: React.FormEvent<HTMLInputElement>;
+    message: React.ChangeEvent<HTMLTextAreaElement>;
+  };
+
+  const [formFields, setFormFields] = useState(contactFields);
+
+  const handleChange = (inputValue: string, inputName: string): void => {
+    setFormFields({ ...formFields, [inputName]: inputValue });
+  };
 
   return (
     <motion.section
-      ref={ref}
       id="contact"
-      className="mb-20 sm:mb-28 w-[min(100%,38rem)]"
+      ref={ref}
+      className="mb-20 sm:mb-28 w-[min(100%,38rem)] text-center scroll-mt-28"
       initial={{
         opacity: 0,
       }}
@@ -27,24 +43,28 @@ const Contact = () => {
         once: true,
       }}
     >
-      <SectionHeader>Contact Me</SectionHeader>
-      <p className="text-gray-700 text-center -mt-6">
-        Please contact me directtly at{" "}
-        <a href="mailto: shrutishastri49@gmail.com" className="underline">
+      <SectionHeading>Contact me</SectionHeading>
+
+      <p className="text-gray-700 -mt-6 dark:text-white/80">
+        Please contact me directly at{" "}
+        <a className="underline" href="mailto:shrutishastri49@gmail.com">
           shrutishastri49@gmail.com
         </a>{" "}
-        or through this form
+        or through this form.
       </p>
-      {/* Implemented server actions on client side */}
+
       <form
+        className="mt-10 flex flex-col dark:text-black"
         action={async (formData) => {
-          const { data, error } = await sendEmail(formData);
+          const { error } = await sendEmail(formData);
+
           if (error) {
             toast.error(error);
+            return;
           }
-          toast.success("Data sent successfully");
+          setFormFields(contactFields);
+          toast.success("Email sent successfully!");
         }}
-        className="mt-10 flex flex-col"
       >
         <input
           className="h-14 px-4 rounded-lg borderBlack dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none"
@@ -53,6 +73,8 @@ const Contact = () => {
           required
           maxLength={500}
           placeholder="Your email"
+          value={formFields.email}
+          onChange={(e) => handleChange(e.currentTarget.value, "email")}
         />
         <textarea
           className="h-52 my-3 rounded-lg borderBlack p-4 dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none"
@@ -60,11 +82,11 @@ const Contact = () => {
           placeholder="Your message"
           required
           maxLength={5000}
+          value={formFields.message}
+          onChange={(e) => handleChange(e.currentTarget.value, "message")}
         />
         <SubmitBtn />
       </form>
     </motion.section>
   );
-};
-
-export default Contact;
+}

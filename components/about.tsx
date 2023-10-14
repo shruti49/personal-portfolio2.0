@@ -1,10 +1,10 @@
 import React from "react";
+import SectionHeading from "./section-heading";
 import { motion } from "framer-motion";
-import SectionHeader from "./section-heading";
 import { useSectionInView } from "@/lib/hooks";
 
-const About = () => {
-  const { ref } = useSectionInView("About",0.75);
+export default function About() {
+  const { ref } = useSectionInView("About", 0.5);
 
   return (
     <motion.section
@@ -15,22 +15,21 @@ const About = () => {
       transition={{ delay: 0.175 }}
       id="about"
     >
-      <SectionHeader>About Me</SectionHeader>
+      <SectionHeading>About me</SectionHeading>
       <p className="mb-3">
         During my masters in{" "}
         <span className="font-medium">Computer Application</span>, I got
         selected in Udacity Scholarship and learned{" "}
-        <span className="font-medium">front-end web development</span>. My
+        <span className="font-medium">Front-End Web Development</span>. My
         favorite part of programming is the problem-solving aspect. I{" "}
         <span className="underline">love</span> the feeling of finally figuring
         out a solution to a problem. My core stack is{" "}
         <span className="font-medium">React, React Native</span>
         .I am currently looking for a{" "}
         <span className="font-medium">full-time position</span> as a front-end
-        enginer.
+        enginer. I am currently learning{" "}
+        <span className="font-medium">Typescript, NextJs, FramerMotion.</span>.
       </p>
     </motion.section>
   );
-};
-
-export default About;
+}

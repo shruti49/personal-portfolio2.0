@@ -62,10 +62,10 @@ export const experiencesData = [
 
 export const projectsData = [
   {
-    title: "CorpComment",
+    title: "YoutubeClone",
     description:
-      "I worked as a full-stack developer on this startup project for 2 years. Users can give public feedback to companies.",
-    tags: ["React", "Next.js", "MongoDB", "Tailwind", "Prisma"],
+      "Features - search cache using redux, search optimisation using debouncing, n level deep comments using recursion, live chat using api polling...",
+    tags: ["React", "Redux", "Tailwind", "FramerMotion"],
     imageUrl: corpcommentImg,
   },
   {
@@ -93,4 +93,8 @@ export const skillsData = [
   "Git",
   "Tailwind",
   "Redux",
+  "Git/Github",
+  "Sourcetree",
+  "Bitbucket",
+  "Jira"
 ] as const;
